@@ -6,6 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+
 public class Tests {
     SHAFT.GUI.WebDriver driver;
     SHAFT.TestData.JSON testData;
@@ -16,7 +17,12 @@ public class Tests {
     public void login() throws InterruptedException {
         new P01_LoginPage(driver).loginSteps(testData.getTestData("userName"),testData.getTestData("password")).
                 clickOnAdminTab().
-                clickOnAddBtn();
+                getOrignalRecords().
+                clickOnAddBtn().
+                fillForm(testData.getTestData("newUserName"),testData.getTestData("newPassword")).
+                formSubmittedSuccessfully().
+                getNumberOfRecords_AfterAddingNewUser().
+                numberOfRecord_IncresedBy1();
         Thread.sleep(3000);
     }
 
