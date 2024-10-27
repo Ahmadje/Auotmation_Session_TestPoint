@@ -1,13 +1,12 @@
 package Pages;
 
 import com.shaft.driver.SHAFT;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-
-import javax.ws.rs.PUT;
 
 public class P03_AdminPage {
     SHAFT.GUI.WebDriver driver;
-    static int orignialNumberOfRecords, numberOfRecordsAfterAddingUser;
+    static int originalNumberOfRecords, numberOfRecordsAfterAddingUser;
 
     //Constructor
     public P03_AdminPage(SHAFT.GUI.WebDriver driver) {
@@ -24,19 +23,19 @@ public class P03_AdminPage {
     //Methods
     public int getNumberOfRecords() {
         int numberOfRecords = Integer.parseInt(driver.element().getText(numberOfRecordsEle).replaceAll("[^0-9]",""));
-        System.out.println("Number of Records Found: " + numberOfRecords);
         return numberOfRecords;
     }
 
-    public P03_AdminPage getOrignalRecords(){
-    orignialNumberOfRecords = getNumberOfRecords();
-        System.out.println("Original Number Of Records Found: " + orignialNumberOfRecords);
+    @Step("Get Original Number of Record before adding new user")
+    public P03_AdminPage getOriginalRecords(){
+    originalNumberOfRecords = getNumberOfRecords();
+        System.out.println("Original Number Of Records Found: " + originalNumberOfRecords);
         return this;
     }
 
     public P03_AdminPage getNumberOfRecords_AfterAddingNewUser(){
         numberOfRecordsAfterAddingUser = getNumberOfRecords();
-        System.out.println("Original Number Of Records Found: " + numberOfRecordsAfterAddingUser);
+        System.out.println("Current Number Of Records Found After Adding new User: " + numberOfRecordsAfterAddingUser);
         return this;
     }
 
@@ -50,8 +49,8 @@ public class P03_AdminPage {
         return this;
     }
 
-    public void numberOfRecord_IncresedBy1(){
-        SHAFT.Validations.verifyThat().object(numberOfRecordsAfterAddingUser).isEqualTo(orignialNumberOfRecords+1).perform();
+    public void numberOfRecord_IncreasedBy1(){
+        SHAFT.Validations.verifyThat().object(numberOfRecordsAfterAddingUser).isEqualTo(originalNumberOfRecords +1).perform();
     }
 
 }
